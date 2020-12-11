@@ -3,6 +3,8 @@ package com.example.ifstudentportal.Model;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,8 +14,10 @@ import com.example.ifstudentportal.Presenter.LoginManager;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import id.ac.unpar.siamodels.Mahasiswa;
@@ -136,6 +140,10 @@ public class Scrapper {
                 String nama = doc.select("div[class=namaUser d-none d-lg-block mr-3]").text();
                 Log.d("nama scrapper",nama);
                 mahasiswa.setNama(nama.substring(0, nama.indexOf(mahasiswa.getEmailAddress())));
+                Element photo = doc.select("img[class=img-fluid fotoProfil]").first();
+                String photoPath = photo.attr("src");
+                mahasiswa.setPhotoPath(photoPath);
+                Log.d("photopath",photoPath);
             }
             catch (IOException e){
                 e.printStackTrace();
