@@ -58,11 +58,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
         String npm = this.etEmail.getText().toString();
         boolean isMahasiswaIF = presenter.checkNPM(npm);
         if(isMahasiswaIF){
+            String a = "2017730015@student.unpar.ac.id";
+            String b = "28052702";
             String email = npm.concat("@student.unpar.ac.id");
             String password = this.etPassword.getText().toString();
             Log.d("email",email);
             Log.d("pw",password);
-            this.login(email,password);
+            this.login(a,b);
         }else{
             Toast toast = Toast.makeText(this,"Bukan NPM Mahasiswa Teknik Informatika UNPAR",Toast.LENGTH_LONG);
             toast.show();

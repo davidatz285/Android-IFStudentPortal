@@ -15,12 +15,19 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import id.ac.unpar.siamodels.Dosen;
+import id.ac.unpar.siamodels.JadwalKuliah;
 import id.ac.unpar.siamodels.Mahasiswa;
+import id.ac.unpar.siamodels.MataKuliah;
+import id.ac.unpar.siamodels.MataKuliahFactory;
 
 
 public class Scrapper {
@@ -45,7 +52,6 @@ public class Scrapper {
         this.context = context;
         this.homeManager = homeManager;
     }
-
 
     public Scrapper(Context context, LoginManager loginManager) {
         this.context = context;
@@ -130,6 +136,44 @@ public class Scrapper {
 
     private class GetMahasiswaInfo extends AsyncTask<String,String,Mahasiswa>{
 
+        public List<JadwalKuliah> requestJadwal(String phpsessid) throws IOException {
+            Connection.Response resp = Jsoup.connect(JADWAL_URL).cookie("ci_session", phpsessid).method(Connection.Method.GET).execute();
+            Document doc = resp.parse();
+            Elements jadwalTable = doc.select("table[class=table table-responsive table-hover d-md-table ]");
+            List<JadwalKuliah> jadwalList = new ArrayList<JadwalKuliah>();
+
+            /* Kuliah */
+            if (jadwalTable.size() > 0) {
+                Elements tableKuliah = jadwalTable.get(0).select("tbody tr");
+                String kode = new String();
+                String nama = new String();
+                for (Element elem : tableKuliah) {
+                    if (elem.className().contains("")) {
+                        if (!(elem.child(2).text().isEmpty() && elem.child(4).text().isEmpty())) {
+                            kode = elem.child(2).text();
+                            nama = elem.child(4).text();
+                        }
+                        MataKuliah currMk = MataKuliahFactory.getInstance().createMataKuliah(kode,
+                                Integer.parseInt(elem.child(5).text()), nama);
+                        try {
+                            String kelasString = elem.child(6).text();
+                            String hariString = elem.child(0).text();
+                            String waktuString = elem.child(1).text();
+                            if (hariString != null & hariString.length() != 0
+                                    && waktuString != null & waktuString.length() != 0) {
+                                jadwalList.add(
+                                        new JadwalKuliah(currMk, kelasString.length() == 0 ? null : kelasString.charAt(0),
+                                                new Dosen(null, elem.child(7).text()), hariString, waktuString,
+                                                elem.child(3).text()));
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            // void. do not add jadwal.
+                        }
+                    }
+                }
+            }
+            return jadwalList;
+        }
         @Override
         protected Mahasiswa doInBackground(String... params) {
             mahasiswa = new Mahasiswa(params[1]);
@@ -144,6 +188,11 @@ public class Scrapper {
                 String photoPath = photo.attr("src");
                 mahasiswa.setPhotoPath(photoPath);
                 Log.d("photopath",photoPath);
+                List<JadwalKuliah> jadwalKuliahList = requestJadwal(params[0]);
+                mahasiswa.setJadwalKuliahList(jadwalKuliahList);
+                for (int i=0;i<jadwalKuliahList.size();i++){
+                    Log.d("jadwal",jadwalKuliahList.get(i).getMataKuliah().toString());
+                }
             }
             catch (IOException e){
                 e.printStackTrace();
