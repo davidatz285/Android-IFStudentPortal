@@ -17,6 +17,9 @@ import com.example.ifstudentportal.R;
 import com.example.ifstudentportal.View.HomeActivity;
 import com.example.ifstudentportal.View.IHomeActivity;
 
+import java.util.List;
+
+import id.ac.unpar.siamodels.JadwalKuliah;
 import id.ac.unpar.siamodels.Mahasiswa;
 
 public class MenuFragment extends Fragment implements IMenuFragment {
@@ -94,6 +97,11 @@ public class MenuFragment extends Fragment implements IMenuFragment {
             Log.d("click lala", "lalalalala");
         }
         ft.commit();
+    }
+
+    @Override
+    public List<JadwalKuliah> getJadwalKuliahList() {
+        return null;
     }
 
 }

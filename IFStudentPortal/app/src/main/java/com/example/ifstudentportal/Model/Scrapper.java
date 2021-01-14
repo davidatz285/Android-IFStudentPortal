@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.ifstudentportal.Presenter.HomeManager;
+import com.example.ifstudentportal.Presenter.JadwalManager;
 import com.example.ifstudentportal.Presenter.LoginManager;
 
 import org.jsoup.Connection;
@@ -37,6 +38,7 @@ public class Scrapper {
     protected Context context;
     protected HomeManager  homeManager;
     protected LoginManager loginManager;
+    protected JadwalManager jadwalManager;
     private ProgressDialog dialog;
 
     private final String BASE_URL = "https://studentportal.unpar.ac.id/";
@@ -59,6 +61,11 @@ public class Scrapper {
         this.dialog = new ProgressDialog(context);
     }
 
+    public Scrapper(Context context, JadwalManager jadwalManager) {
+        this.context = context;
+        this.jadwalManager = jadwalManager;
+    }
+
     public void login(String email, String npm) {
         new Login().execute(email, npm);
     }
@@ -67,8 +74,11 @@ public class Scrapper {
         new GetMahasiswaInfo().execute(phpSessId,npm);
     }
 
-    private class Login extends AsyncTask<String, Void, Wrapper> {
+    public void getListJadwal(String phpSessId){
+        new RequestJadwal().execute(phpSessId);
+    }
 
+    private class Login extends AsyncTask<String, Void, Wrapper> {
 
         @Override
         protected void onPreExecute() {
@@ -136,6 +146,42 @@ public class Scrapper {
 
     private class GetMahasiswaInfo extends AsyncTask<String,String,Mahasiswa>{
 
+        @Override
+        protected Mahasiswa doInBackground(String... params) {
+            mahasiswa = new Mahasiswa(params[1]);
+            try{
+                Connection.Response resp = Jsoup.connect(HOME_URL).cookie("ci_session", params[0]).method(Connection.Method.GET).execute();
+                Document doc = resp.parse();
+                Log.d("login", "login");
+                String nama = doc.select("div[class=namaUser d-none d-lg-block mr-3]").text();
+                Log.d("nama scrapper",nama);
+                mahasiswa.setNama(nama.substring(0, nama.indexOf(mahasiswa.getEmailAddress())));
+                Element photo = doc.select("img[class=img-fluid fotoProfil]").first();
+                String photoPath = photo.attr("src");
+                mahasiswa.setPhotoPath(photoPath);
+                Log.d("photopath",photoPath);
+//                List<JadwalKuliah> jadwalKuliahList = requestJadwal(params[0]);
+//                mahasiswa.setJadwalKuliahList(jadwalKuliahList);
+//                for (int i=0;i<jadwalKuliahList.size();i++){
+//                    Log.d("jadwal",jadwalKuliahList.get(i).getMataKuliah().toString());
+//                }
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+            return mahasiswa;
+        }
+
+        @Override
+        protected void onPostExecute(Mahasiswa mahasiswa) {
+            super.onPostExecute(mahasiswa);
+            //Log.d("mahasiswa",mahasiswa.getEmail()+" "+mahasiswa.getNama());
+            homeManager.displayMahasiswaInfo(mahasiswa);
+        }
+    }
+
+    private class RequestJadwal extends AsyncTask<String,String,List<JadwalKuliah>>{
+
         public List<JadwalKuliah> requestJadwal(String phpsessid) throws IOException {
             Connection.Response resp = Jsoup.connect(JADWAL_URL).cookie("ci_session", phpsessid).method(Connection.Method.GET).execute();
             Document doc = resp.parse();
@@ -174,41 +220,24 @@ public class Scrapper {
             }
             return jadwalList;
         }
+
         @Override
-        protected Mahasiswa doInBackground(String... params) {
-            mahasiswa = new Mahasiswa(params[1]);
-            try{
-                Connection.Response resp = Jsoup.connect(HOME_URL).cookie("ci_session", params[0]).method(Connection.Method.GET).execute();
-                Document doc = resp.parse();
-                Log.d("login", "login");
-                String nama = doc.select("div[class=namaUser d-none d-lg-block mr-3]").text();
-                Log.d("nama scrapper",nama);
-                mahasiswa.setNama(nama.substring(0, nama.indexOf(mahasiswa.getEmailAddress())));
-                Element photo = doc.select("img[class=img-fluid fotoProfil]").first();
-                String photoPath = photo.attr("src");
-                mahasiswa.setPhotoPath(photoPath);
-                Log.d("photopath",photoPath);
-                List<JadwalKuliah> jadwalKuliahList = requestJadwal(params[0]);
-                mahasiswa.setJadwalKuliahList(jadwalKuliahList);
-                for (int i=0;i<jadwalKuliahList.size();i++){
-                    Log.d("jadwal",jadwalKuliahList.get(i).getMataKuliah().toString());
-                }
-            }
-            catch (IOException e){
+        protected List<JadwalKuliah> doInBackground(String... strings) {
+            List<JadwalKuliah> jadwal = null;
+            try {
+                jadwal = requestJadwal(strings[0]);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            return mahasiswa;
+            return jadwal;
         }
 
         @Override
-        protected void onPostExecute(Mahasiswa mahasiswa) {
-            super.onPostExecute(mahasiswa);
-            //Log.d("mahasiswa",mahasiswa.getEmail()+" "+mahasiswa.getNama());
-            homeManager.displayMahasiswaInfo(mahasiswa);
+        protected void onPostExecute(List<JadwalKuliah> jadwalKuliahs) {
+            super.onPostExecute(jadwalKuliahs);
+            jadwalManager.setListJadwal(jadwalKuliahs);
         }
     }
-
-
 
 
 }

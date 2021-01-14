@@ -93,14 +93,14 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity, IM
         this.tvNama.setText(mahasiswa.getNama());
         //this.tvEmail.setText(tvEmail.getText() + " " + mahasiswa.getEmailAddress());
         this.tvNPM.setText(mahasiswa.getNpm());
-        this.mahasiswa.setJadwalKuliahList(mahasiswa.getJadwalKuliahList());
-        List<JadwalKuliah> list = this.mahasiswa.getJadwalKuliahList();
-        for(int i=0;i<list.size();i++){
-            Log.d("jad",list.get(i).getMataKuliah().getNama());
-        }
-        Bundle aa = new Bundle();
-        aa.putSerializable("mhs",this.mahasiswa);
-        fragments[0].setArguments(aa);
+//        this.mahasiswa.setJadwalKuliahList(mahasiswa.getJadwalKuliahList());
+//        List<JadwalKuliah> list = this.mahasiswa.getJadwalKuliahList();
+//        for(int i=0;i<list.size();i++){
+//            Log.d("jad",list.get(i).getMataKuliah().getNama());
+//        }
+//        Bundle aa = new Bundle();
+//        aa.putSerializable("mhs",this.mahasiswa);
+//        fragments[0].setArguments(aa);
         /*
         saat photo  di student  portal  suda normal, uncomment bagian ini
         try{
@@ -130,6 +130,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity, IM
         MenuFragment mf = (MenuFragment) fragments[0];
         mf.changePage(0);
     }
+
+    @Override
+    public List<JadwalKuliah> getJadwalKuliahList() {
+        return null;
+    }
+
     @Override
     public void onBackPressed() {
         // if there is a fragment and the back stack of this fragment is not empty,
