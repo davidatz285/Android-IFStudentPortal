@@ -50,9 +50,7 @@ public class JadwalFragment extends Fragment implements IJadwalFragment{
         View view = inflater.inflate(R.layout.jadwal_fragment, container, false);
         this.mahasiswa = (Mahasiswa) this.getActivity().getIntent().getExtras().getSerializable("mhs");
         Log.d("jad mhs",this.mahasiswa.getNpm());
-        this.presenter = new Presenter((IHomeActivity) this.getActivity());
         String phpSessId = this.getActivity().getIntent().getExtras().getString("phpSessId");
-        //this.presenter.getListJadwal(phpSessId);
         weekView = view.findViewById(R.id.week_view);
         weekView.addEvent(new Event.Single(13, LocalDate.of(2020,1,7),"AJK 1","AJK 1","CHW", LocalTime.of(13,0).truncatedTo(ChronoUnit.HOURS), LocalTime.of(15,0).truncatedTo(ChronoUnit.HOURS),"AJK 1","AJK 1", Color.WHITE,R.color.grey));
         weekView.addEvent(new Event.Single(13, LocalDate.of(2020,1,6),"Pemodelan Untuk Komputasi","PUK","HUH", LocalTime.of(13,0).truncatedTo(ChronoUnit.HOURS), LocalTime.of(16,0).truncatedTo(ChronoUnit.HOURS),"","", Color.BLACK,R.color.myblue));
@@ -69,6 +67,8 @@ public class JadwalFragment extends Fragment implements IJadwalFragment{
         //this.setJadwal();
         return view;
     }
+
+
 
     public void setJadwal(){
         List<JadwalKuliah> list = this.mahasiswa.getJadwalKuliahList();
@@ -93,5 +93,10 @@ public class JadwalFragment extends Fragment implements IJadwalFragment{
     @Override
     public void setJadwalKuliahList(List<JadwalKuliah> jadwalKuliahs) {
         this.listJadwal = jadwalKuliahs;
+    }
+
+    public void setPresenter(Presenter presenter,String phpSessId) {
+        this.presenter = presenter;
+        //this.presenter.getListJadwal(phpSessId);
     }
 }

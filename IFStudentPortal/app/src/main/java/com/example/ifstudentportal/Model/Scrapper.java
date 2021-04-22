@@ -36,7 +36,7 @@ public class Scrapper {
     private String ciSession;
     private Mahasiswa mahasiswa;
     protected Context context;
-    protected HomeManager  homeManager;
+    protected HomeManager homeManager;
     protected LoginManager loginManager;
     protected JadwalManager jadwalManager;
     private ProgressDialog dialog;
@@ -66,15 +66,15 @@ public class Scrapper {
         this.jadwalManager = jadwalManager;
     }
 
-    public void login(String email, String npm) {
-        new Login().execute(email, npm);
+    public void login(String email, String password) {
+        new Login().execute(email, password);
     }
 
     public void getMahasiswaInfo(String phpSessId, String npm) {
-        new GetMahasiswaInfo().execute(phpSessId,npm);
+        new GetMahasiswaInfo().execute(phpSessId, npm);
     }
 
-    public void getListJadwal(String phpSessId){
+    public void getListJadwal(String phpSessId) {
         new RequestJadwal().execute(phpSessId);
     }
 
@@ -91,7 +91,7 @@ public class Scrapper {
         protected Wrapper doInBackground(String... params) {
             String result;
             Wrapper wrapper = null;
-            mahasiswa = new Mahasiswa(params[0].substring(0,10));
+            mahasiswa = new Mahasiswa(params[0].substring(0, 10));
             try {
                 Connection.Response resp = Jsoup.connect(LOGIN_URL).data("Submit", "Login").method(Connection.Method.POST).execute();
                 Document doc = resp.parse();
@@ -112,14 +112,13 @@ public class Scrapper {
                 loginConn.method(Connection.Method.POST);
                 resp = loginConn.execute();
                 int respCode = resp.statusCode();
-                Log.d("status",respCode+"");
+                Log.d("status", respCode + "");
                 //iLoginActivity.sendInfo(resp.statusCode()+"");
                 if (resp.body().contains(params[0])) {
                     Map<String, String> phpsessid = resp.cookies();
                     result = phpsessid.get("ci_session");
                     phpSessId = result;
-                }
-                else {
+                } else {
                     phpSessId = null;
                 }
                 wrapper = new Wrapper(phpSessId, respCode, mahasiswa);
@@ -144,29 +143,28 @@ public class Scrapper {
         }
     }
 
-    private class GetMahasiswaInfo extends AsyncTask<String,String,Mahasiswa>{
+    private class GetMahasiswaInfo extends AsyncTask<String, String, Mahasiswa> {
 
         @Override
         protected Mahasiswa doInBackground(String... params) {
             mahasiswa = new Mahasiswa(params[1]);
-            try{
+            try {
                 Connection.Response resp = Jsoup.connect(HOME_URL).cookie("ci_session", params[0]).method(Connection.Method.GET).execute();
                 Document doc = resp.parse();
                 Log.d("login", "login");
                 String nama = doc.select("div[class=namaUser d-none d-lg-block mr-3]").text();
-                Log.d("nama scrapper",nama);
+                Log.d("nama scrapper", nama);
                 mahasiswa.setNama(nama.substring(0, nama.indexOf(mahasiswa.getEmailAddress())));
                 Element photo = doc.select("img[class=img-fluid fotoProfil]").first();
                 String photoPath = photo.attr("src");
                 mahasiswa.setPhotoPath(photoPath);
-                Log.d("photopath",photoPath);
+                Log.d("photopath", photoPath);
 //                List<JadwalKuliah> jadwalKuliahList = requestJadwal(params[0]);
 //                mahasiswa.setJadwalKuliahList(jadwalKuliahList);
 //                for (int i=0;i<jadwalKuliahList.size();i++){
 //                    Log.d("jadwal",jadwalKuliahList.get(i).getMataKuliah().toString());
 //                }
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return mahasiswa;
@@ -180,7 +178,7 @@ public class Scrapper {
         }
     }
 
-    private class RequestJadwal extends AsyncTask<String,String,List<JadwalKuliah>>{
+    private class RequestJadwal extends AsyncTask<String, String, List<JadwalKuliah>> {
 
         public List<JadwalKuliah> requestJadwal(String phpsessid) throws IOException {
             Connection.Response resp = Jsoup.connect(JADWAL_URL).cookie("ci_session", phpsessid).method(Connection.Method.GET).execute();
@@ -226,6 +224,9 @@ public class Scrapper {
             List<JadwalKuliah> jadwal = null;
             try {
                 jadwal = requestJadwal(strings[0]);
+                for (int i = 0; i < jadwal.size(); i++) {
+                    Log.d("lala jadwal", jadwal.get(i).getMataKuliah().toString());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

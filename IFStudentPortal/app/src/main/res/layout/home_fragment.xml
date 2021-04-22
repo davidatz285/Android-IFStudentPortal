@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Profil"
+        android:textColor="@color/color_primary_text"
+        android:textSize="20sp" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/id_Profile_Image"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:src="@drawable/foto"
+        app:civ_border_color="#EEEEEE"
+        app:civ_border_width="4dp"
+        app:civ_shadow="true"
+        app:civ_shadow_color="#f4f5f9"
+        app:civ_shadow_radius="10" />
+
+
+    <TextView
+        android:id="@+id/id_fullName_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:text=""
+        android:textColor="@color/color_primary_text"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/id_NPM_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="12dp"
+        android:text=""
+        android:textColor="@color/color_third_text"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_prasyarat"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Persiapan Perwalian"
+        app:icon="@drawable/baseline_check_box_black_18dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_jadwal"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="jadwal"
+        app:icon="@drawable/baseline_today_black_18dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_ringkasan"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Syarat Kelulusan"
+        app:icon="@drawable/baseline_school_black_18dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Log Out"
+        app:icon="@drawable/outline_logout_black_18" />
+
+
+</LinearLayout>

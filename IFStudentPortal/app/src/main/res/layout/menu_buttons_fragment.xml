@@ -9,20 +9,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_prasyarat"
         android:text="Persiapan Perwalian"
-        app:icon="@drawable/ifstudporlogo"
-        />
+        app:icon="@drawable/baseline_check_box_black_18dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_jadwal"
         android:text="jadwal"
-        app:icon="@drawable/ifstudporlogo"
+        app:icon="@drawable/baseline_today_black_18dp"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_ringkasan"
-        android:text="Ringkasan Data Akademik"
-        app:icon="@drawable/ifstudporlogo"
+        android:text="Syarat Kelulusan"
+        app:icon="@drawable/baseline_school_black_18dp"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 </LinearLayout>

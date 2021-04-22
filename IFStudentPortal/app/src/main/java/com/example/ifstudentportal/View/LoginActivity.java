@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
     }
 
     @Override
-    public void login(String email, String npm) {
-        this.presenter.login(email, npm);
+    public void login(String email, String password) {
+        this.presenter.login(email, password);
 
     }
 
