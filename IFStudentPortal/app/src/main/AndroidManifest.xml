@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button">
-        <activity android:name=".View.AnimateActivity">
+        <activity android:name="id.ac.unpar.ifstudentportal.View.AnimateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.LoginActivity"></activity>
-        <activity android:name=".View.HomeActivity"></activity>
+        <activity android:name="id.ac.unpar.ifstudentportal.View.LoginActivity"></activity>
+        <activity android:name="id.ac.unpar.ifstudentportal.View.HomeActivity"></activity>
     </application>
 
 </manifest>

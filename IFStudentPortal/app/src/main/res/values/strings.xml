@@ -4,4 +4,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="show_password">Show Password</string>
+    <string name="kode_mk">Kode MK</string>
+    <string name="nama_mk">Nama MK</string>
+    <string name="status_mk">Status MK</string>
 </resources>

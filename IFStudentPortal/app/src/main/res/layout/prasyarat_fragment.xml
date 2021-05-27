@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/kode_mk"
+            android:text="@string/kode_mk"
+            android:layout_weight="1.2"
+            android:layout_margin="3dp"
+            android:padding="3dp"
+            android:background="@drawable/et_shape"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nama_mk"
+            android:text="@string/nama_mk"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:padding="3dp"
+            android:background="@drawable/et_shape"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/status_mk"
+            android:text="@string/status_mk"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:padding="3dp"
+            android:background="@drawable/et_shape"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_matkul"/>
+</LinearLayout>
