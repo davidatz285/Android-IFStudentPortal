@@ -4,25 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-
 import id.ac.unpar.ifstudentportal.Presenter.Presenter;
-
 import com.example.ifstudentportal.R;
 import id.ac.unpar.ifstudentportal.View.Fragment.HomeFragment;
 import id.ac.unpar.ifstudentportal.View.Fragment.JadwalFragment;
 import id.ac.unpar.ifstudentportal.View.Fragment.KelulusanFragment;
 import id.ac.unpar.ifstudentportal.View.Fragment.PrasyaratFragment;
 import id.ac.unpar.siamodels.Mahasiswa;
-
+import id.ac.unpar.siamodels.TahunSemester;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-
 public class HomeActivity extends AppCompatActivity implements IHomeActivity {
-
     protected FragmentManager fm;
     protected Fragment[] fragments;
     protected Presenter presenter;
@@ -30,7 +25,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
     protected HomeFragment homeFragment;
     protected JadwalFragment jadwalFragment;
     protected PrasyaratFragment prasyaratFragment;
-    private KelulusanFragment kelulusanFragment;
+    protected KelulusanFragment kelulusanFragment;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +37,9 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         this.homeFragment = HomeFragment.newInstance();
         this.homeFragment.setPresenter(presenter);
         this.jadwalFragment = JadwalFragment.newInstance();
-        Bundle bundle = getIntent().getExtras();
+        this.bundle = getIntent().getExtras();
         String phpSessId = bundle.getString("phpSessId");
-        this.jadwalFragment.setPresenter(presenter,phpSessId);
+        this.jadwalFragment.setPresenter(presenter);
         Mahasiswa mahasiswa = (Mahasiswa) bundle.getSerializable("mhs");
         this.presenter.getMahasiswaInfo(phpSessId,mahasiswa.getNpm());
         this.prasyaratFragment = PrasyaratFragment.newInstance();
@@ -54,12 +50,10 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         this.fragments[1] = jadwalFragment;
         this.fragments[2] = prasyaratFragment;
         this.fragments[3] = kelulusanFragment;
-
         this.fm = getSupportFragmentManager();
         FragmentTransaction ft = this.fm.beginTransaction();
         ft.add(R.id.fragment_container, this.fragments[0]).addToBackStack(null).commit();
         AndroidThreeTen.init(this);
-
     }
 
     @Override
@@ -96,8 +90,13 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
             ft.show(fragments[3]);
             ft.addToBackStack(null);
             ft.commit();
+        }else{
+            this.presenter.logout();
+            this.bundle.clear();
+            Intent i = new Intent(HomeActivity.this,LoginActivity.class);
+            startActivity(i);
+            finish();
         }
-
     }
 
     @Override
@@ -107,23 +106,11 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         this.kelulusanFragment.setMahasiswaForFragment(mahasiswa);
     }
 
+    @Override
+    public void setTahunSemesterForFragment(TahunSemester tahunSemester) {
 
-//    @Override
-//    public void onBackPressed() {
-//        // if there is a fragment and the back stack of this fragment is not empty,
-//        // then emulate 'onBackPressed' behaviour, because in default, it is not working
-//        FragmentManager fm = getSupportFragmentManager();
-//        for (Fragment frag : fm.getFragments()) {
-//            if (frag.isVisible()) {
-//                FragmentManager childFm = frag.getChildFragmentManager();
-//                if (childFm.getBackStackEntryCount() > 0) {
-//                    childFm.popBackStack();
-//                    return;
-//                }
-//            }
-//        }
-//        super.onBackPressed();
-//    }
+    }
+
 
 
 }

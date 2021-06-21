@@ -1,24 +1,24 @@
 package id.ac.unpar.ifstudentportal.View.Fragment;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import id.ac.unpar.ifstudentportal.Presenter.Presenter;
 import id.ac.unpar.ifstudentportal.View.HomeActivity;
 import id.ac.unpar.ifstudentportal.View.IHomeActivity;
 import id.ac.unpar.siamodels.Mahasiswa;
-
+import id.ac.unpar.siamodels.TahunSemester;
 import com.example.ifstudentportal.R;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import java.io.IOException;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener, IHomeActivity {
@@ -67,8 +67,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IHom
             this.tvNama.setText(savedState.getSerializable("nama").toString());
             this.tvNPM.setText(savedState.getSerializable("npm").toString());
         }
-        //displayMahasiswaInfo(this.mahasiswa);
-
     }
 
     public void setPresenter(Presenter presenter) {
@@ -126,15 +124,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IHom
         this.mahasiswa = mhs;
         this.tvNama.setText(mhs.getNama());
         this.tvNPM.setText(mhs.getNpm());
-//        try{
-//            byte[] bytePhoto = mhs.getPhotoImage();
-//            if(bytePhoto!=null){
-//                this.photo.setImageBitmap(BitmapFactory.decodeByteArray(bytePhoto,0,bytePhoto.length));
-//            }
-//        }  catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
+        try{
+            if(mhs.getPhotoPath().length()>30){
+                byte[] bytePhoto = mhs.getPhotoImage();
+                this.photo.setImageBitmap(BitmapFactory.decodeByteArray(bytePhoto,0,bytePhoto.length));
+            }
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -144,7 +141,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IHom
 
     @Override
     public void setMahasiswaForFragment(Mahasiswa mahasiswa) {
+    }
 
+    @Override
+    public void setTahunSemesterForFragment(TahunSemester tahunSemester) {
     }
 
 }

@@ -6,9 +6,7 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.ifstudentportal.R;
 
 public class AnimateActivity extends AppCompatActivity {
@@ -19,7 +17,6 @@ public class AnimateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startup_animate_activity);
         logo=(ImageView)findViewById(R.id.logo);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

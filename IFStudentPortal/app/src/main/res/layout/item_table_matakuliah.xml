@@ -4,29 +4,26 @@
     android:layout_height="wrap_content">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/kode_mk"
         android:text="kode"
         android:layout_weight="1.2"
-        android:layout_margin="3dp"
         android:padding="3dp"
-        android:background="@drawable/et_shape"/>
+        android:background="@drawable/tv_border"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/nama_mk"
         android:text="nama"
         android:layout_weight="1"
-        android:layout_margin="3dp"
         android:padding="3dp"
-        android:background="@drawable/et_shape"/>
+        android:background="@drawable/tv_border"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/status_mk"
         android:text="status"
         android:layout_weight="1"
-        android:layout_margin="3dp"
         android:padding="3dp"
-        android:background="@drawable/et_shape"/>
+        android:background="@drawable/tv_border"/>
 </LinearLayout>

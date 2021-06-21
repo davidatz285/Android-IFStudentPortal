@@ -5,22 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
-
 import id.ac.unpar.ifstudentportal.Model.Wrapper;
 import id.ac.unpar.ifstudentportal.Presenter.Presenter;
-
 import com.example.ifstudentportal.R;
 import com.google.android.material.button.MaterialButton;
 
-import id.ac.unpar.siamodels.Mahasiswa;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity, View.OnClickListener {
     private EditText etPassword;
@@ -39,16 +33,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
         this.btnLogin = findViewById(R.id.btn_login);
         this.btnLogin.setOnClickListener(this);
         this.presenter = new Presenter(this);
-        this.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                // show password
-                if (isChecked)
-                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                else {
-                    // hide password
-                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
+        this.checkbox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            // show password
+            if (isChecked)
+                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            else {
+                // hide password
+                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
     }
@@ -59,29 +50,22 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
         String npm = this.etEmail.getText().toString();
         boolean isMahasiswaIF = presenter.checkNPM(npm);
         if(isMahasiswaIF){
-            String a = "2017730025@student.unpar.ac.id";
-            String b = "jigjigbug";
             String email = npm.concat("@student.unpar.ac.id");
             String password = this.etPassword.getText().toString();
-            Log.d("email",email);
-            Log.d("pw",password);
-            this.login(a,b);
+            this.login(email,password);
         }else{
             Toast toast = Toast.makeText(this,"Bukan NPM Mahasiswa Teknik Informatika UNPAR",Toast.LENGTH_LONG);
             toast.show();
         }
-
     }
 
     @Override
     public void login(String email, String password) {
         this.presenter.login(email, password);
-
     }
 
     @Override
     public void switchToHomeActivity(Wrapper wrapper) {
-        //Log.d("info",phpSessId);
         if(wrapper.getPhpSessId()!=null){
             Intent i = new Intent(LoginActivity.this,HomeActivity.class);
             i.putExtra("phpSessId",wrapper.getPhpSessId());
@@ -92,19 +76,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
             Toast toast = Toast.makeText(this,"Email / Password Salah!",Toast.LENGTH_LONG);
             toast.show();
         }
-
     }
 
     @Override
     public Context getContext() {
         return this;
     }
-
-    @Override
-    public void displayMahasiswaInfo(Mahasiswa mahasiswa) {
-
-    }
-
-
-
 }

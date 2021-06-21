@@ -5,19 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.ifstudentportal.R;
-
 import id.ac.unpar.ifstudentportal.Model.KelulusanAdapter;
 import id.ac.unpar.ifstudentportal.Presenter.Presenter;
 import id.ac.unpar.ifstudentportal.View.IHomeActivity;
 import id.ac.unpar.siamodels.Mahasiswa;
+import id.ac.unpar.siamodels.TahunSemester;
 
 public class KelulusanFragment extends Fragment implements IHomeActivity {
     protected TextView tvStatus;
@@ -43,6 +41,13 @@ public class KelulusanFragment extends Fragment implements IHomeActivity {
             this.kelulusanAdapter = new KelulusanAdapter(mahasiswa);
             this.recyclerView.setAdapter(kelulusanAdapter);
             this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            String status = "";
+            if(kelulusanAdapter.bisaLulus()){
+                status = "Anda sudah memenuhi syarat untuk lulus.";
+            }else if(kelulusanAdapter.getAlasan().size() != 0){
+                status = "Anda belum memenuhi syarat untuk lulus:";
+            }
+            this.tvStatus.setText(status);
         } else {
             this.presenter.getNilaiMahasiswa(phpSessId, mahasiswa.getNpm());
         }
@@ -79,10 +84,14 @@ public class KelulusanFragment extends Fragment implements IHomeActivity {
         this.tvStatus.setText(status);
     }
 
+    @Override
+    public void setTahunSemesterForFragment(TahunSemester tahunSemester) {
+    }
+
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
-    private Bundle saveState(Mahasiswa mhs) { /* called either from onDestroyView() or onSaveInstanceState() */
+    private Bundle saveState(Mahasiswa mhs) {
         Bundle state = new Bundle();
         state.putSerializable("mhslulus_nilai_added", mhs);
         return state;
@@ -91,7 +100,7 @@ public class KelulusanFragment extends Fragment implements IHomeActivity {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        savedState = saveState(this.mahasiswa); /* vstup defined here for sure */
+        savedState = saveState(this.mahasiswa);
     }
 
     @Override

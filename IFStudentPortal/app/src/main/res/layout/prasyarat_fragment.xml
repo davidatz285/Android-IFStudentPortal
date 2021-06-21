@@ -5,6 +5,69 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/tv_border">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PERSIAPAN PERWALIAN"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/color_third_text"
+            android:backgroundTint="@color/colorPrimary"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Semester"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textColor="@color/color_third_text"
+            android:backgroundTint="@color/colorPrimary"
+            android:id="@+id/tv_semester"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_akademik"
+            android:textColor="@color/color_primary_text"
+            android:background="@color/colorPrimary"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_ips"
+            android:text="IPS : Data Akademik Belum Tersedia"
+            android:textAlignment="center"
+            android:textColor="@color/color_third_text"
+            android:backgroundTint="@color/colorPrimary"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_ipk"
+            android:text="IPK : Data Akademik Belum Tersedia"
+            android:textAlignment="center"
+            android:textColor="@color/color_third_text"
+            android:backgroundTint="@color/colorPrimary"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_sks"
+            android:text="SKS Lulus : Data Akademik Belum Tersedia"
+            android:textAlignment="center"
+            android:textColor="@color/color_third_text"
+            android:backgroundTint="@color/colorPrimary"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_toefl"
+            android:text="Nilai TOEFL : Data Akademik Belum Tersedia"
+            android:textAlignment="center"
+            android:textColor="@color/color_third_text"
+            android:backgroundTint="@color/colorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
             android:layout_width="match_parent"
@@ -12,27 +75,33 @@
             android:id="@+id/kode_mk"
             android:text="@string/kode_mk"
             android:layout_weight="1.2"
-            android:layout_margin="3dp"
             android:padding="3dp"
-            android:background="@drawable/et_shape"/>
+            android:background="@drawable/tv_border"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/color_primary_text"
+            android:textAlignment="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nama_mk"
             android:text="@string/nama_mk"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:padding="3dp"
-            android:background="@drawable/et_shape"/>
+            android:background="@drawable/tv_border"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/color_primary_text"
+            android:textAlignment="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/status_mk"
             android:text="@string/status_mk"
             android:layout_weight="1"
-            android:layout_margin="3dp"
             android:padding="3dp"
-            android:background="@drawable/et_shape"/>
+            android:background="@drawable/tv_border"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/color_primary_text"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

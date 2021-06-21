@@ -1,32 +1,24 @@
 package id.ac.unpar.ifstudentportal.Model;
 
-import android.app.Activity;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import id.ac.unpar.ifstudentportal.Presenter.Presenter;
 import id.ac.unpar.siamodels.Mahasiswa;
 import id.ac.unpar.siamodels.MataKuliah;
 import id.ac.unpar.siamodels.MataKuliahFactory;
 import id.ac.unpar.siamodels.matakuliah.interfaces.HasPrasyarat;
-
 import com.example.ifstudentportal.R;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
 public class MataKuliahAdapter extends RecyclerView.Adapter<MataKuliahAdapter.MyViewHolder> {
     protected Mahasiswa mahasiswa;
-    private Activity activity;
     protected Presenter presenter;
     protected List<Mahasiswa.Nilai> nilaiList;
     protected List<PrasyaratDisplay> itemDisplayList;
@@ -36,10 +28,8 @@ public class MataKuliahAdapter extends RecyclerView.Adapter<MataKuliahAdapter.My
         this.mahasiswa = mahasiswa;
         this.nilaiList = mahasiswa.getRiwayatNilai();
         mkList = this.requestAvailableKuliah();
-        //Log.d("item size",nilaiList.size()+"");
         this.itemDisplayList = checkPrasyarat();
     }
-
 
     @NonNull
     @Override
@@ -53,7 +43,15 @@ public class MataKuliahAdapter extends RecyclerView.Adapter<MataKuliahAdapter.My
     public void onBindViewHolder(@NonNull MataKuliahAdapter.MyViewHolder holder, int position) {
         holder.tvKode.setText(itemDisplayList.get(position).mataKuliah.getKode());
         holder.tvNama.setText(itemDisplayList.get(position).mataKuliah.getNama());
-        holder.tvStatus.setText(itemDisplayList.get(position).status[0]);
+        String status = itemDisplayList.get(position).status[0];
+        holder.tvStatus.setText(status);
+        if(status.contains("sudah lulus")){
+            holder.tvStatus.setTextColor(Color.BLUE);
+        }else if(status.contains("tidak memiliki prasyarat") || status.contains("memenuhi syarat")){
+            holder.tvStatus.setTextColor(Color.parseColor("#FF5DC062"));
+        }else{
+            holder.tvStatus.setTextColor(Color.RED);
+        }
     }
 
 

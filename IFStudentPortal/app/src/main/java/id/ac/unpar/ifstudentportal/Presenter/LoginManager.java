@@ -20,10 +20,6 @@ public class LoginManager {
     public void setiLoginActivity(ILoginActivity iLoginActivity) {
         this.iLoginActivity = iLoginActivity;
     }
-//    public LoginPresenter(IHomeActivity iHomeActivity) {
-//        this.iHomeActivity = iHomeActivity;
-//        this.scrapper = new Scrapper(iHomeActivity.getContext(),this);
-//    }
 
     public void login(String email, String npm) {
         this.scrapper.login(email, npm);
@@ -39,7 +35,6 @@ public class LoginManager {
             if (npm.substring(4, 6).equals("73")) {
                 isMahasiswaIF = true;
             }
-
         } else if (npm.startsWith("618")) {
             isMahasiswaIF = true;
         } else {

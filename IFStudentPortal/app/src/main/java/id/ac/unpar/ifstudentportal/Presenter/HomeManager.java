@@ -1,8 +1,8 @@
 package id.ac.unpar.ifstudentportal.Presenter;
-
 import id.ac.unpar.ifstudentportal.Model.Scrapper;
 import id.ac.unpar.ifstudentportal.View.IHomeActivity;
 import id.ac.unpar.siamodels.Mahasiswa;
+import id.ac.unpar.siamodels.TahunSemester;
 
 public class HomeManager {
     protected IHomeActivity iHomeActivity;
@@ -30,4 +30,17 @@ public class HomeManager {
     public void setMahasiswaForFragment(Mahasiswa mahasiswa) {
         this.iHomeActivity.setMahasiswaForFragment(mahasiswa);
     }
+
+    public void requestTahunSemester(String phpSessId, String npm) {
+        this.scrapper.requestTahunSemester(phpSessId,npm);
+    }
+
+    public void setTahunSemesterForFragment(TahunSemester tahunSemester) {
+        this.iHomeActivity.setTahunSemesterForFragment(tahunSemester);
+    }
+
+    public void logout() {
+        this.scrapper.logout();
+    }
+
 }

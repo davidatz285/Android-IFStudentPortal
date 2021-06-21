@@ -1,22 +1,16 @@
 package id.ac.unpar.ifstudentportal.Model;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.ifstudentportal.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import id.ac.unpar.ifstudentportal.Presenter.Presenter;
 import id.ac.unpar.siamodels.Mahasiswa;
-
 import id.ac.unpar.siamodels.prodi.teknikinformatika.Kelulusan;
 
 public class KelulusanAdapter extends RecyclerView.Adapter<KelulusanAdapter.KelulusanViewHolder> {
@@ -32,7 +26,6 @@ public class KelulusanAdapter extends RecyclerView.Adapter<KelulusanAdapter.Kelu
         this.alasan = new ArrayList<>();
         Kelulusan str = new Kelulusan();
         this.bisaLulus = str.checkPrasyarat(mahasiswa, alasan);
-        Log.d("alasan size",alasan.size()+"");
     }
     @NonNull
     @Override
@@ -49,7 +42,6 @@ public class KelulusanAdapter extends RecyclerView.Adapter<KelulusanAdapter.Kelu
     @Override
     public void onBindViewHolder(@NonNull KelulusanViewHolder holder, int position) {
         holder.tvAlasan.setText(alasan.get(position));
-        Log.d("alasan",alasan.get(position));
     }
 
     @Override

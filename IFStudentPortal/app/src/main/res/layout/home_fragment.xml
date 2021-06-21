@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Profil"
-        android:textColor="@color/color_primary_text"
+        android:layout_margin="3dp"
+        android:padding="3dp"
+        android:text="PROFIL"
+        android:textColor="@color/color_third_text"
         android:textSize="20sp" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
@@ -34,7 +36,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="18dp"
         android:text=""
-        android:textColor="@color/color_primary_text"
+        android:textColor="@color/color_third_text"
         android:textSize="20sp"
         tools:ignore="HardcodedText" />
 
@@ -53,43 +55,51 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_prasyarat"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:backgroundTint="@color/btn_color"
+        android:textColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="Persiapan Perwalian"
-        app:icon="@drawable/baseline_check_box_black_18dp" />
+        app:icon="@drawable/baseline_check_box_black_18dp"
+        app:iconTint="@color/colorPrimary"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_jadwal"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="jadwal"
-        app:icon="@drawable/baseline_today_black_18dp" />
+        app:icon="@drawable/baseline_today_black_18dp"
+        android:backgroundTint="@color/btn_color"
+        android:textColor="@color/colorPrimary"
+        app:iconTint="@color/colorPrimary"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_ringkasan"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="Syarat Kelulusan"
-        app:icon="@drawable/baseline_school_black_18dp" />
+        app:icon="@drawable/baseline_school_black_18dp"
+        android:backgroundTint="@color/btn_color"
+        android:textColor="@color/colorPrimary"
+        app:iconTint="@color/colorPrimary"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="Log Out"
-        app:icon="@drawable/outline_logout_black_18" />
+        app:icon="@drawable/outline_logout_black_18"
+        android:backgroundTint="@color/btn_color"
+        android:textColor="@color/colorPrimary"
+        app:iconTint="@color/colorPrimary"/>
 
 
 </LinearLayout>
