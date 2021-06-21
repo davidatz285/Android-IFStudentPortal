@@ -1,12 +1,11 @@
 package id.ac.unpar.ifstudentportal.View.Fragment;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.RequiresApi;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import id.ac.unpar.ifstudentportal.Presenter.Presenter;
 import com.example.ifstudentportal.R;
@@ -24,7 +23,6 @@ public class JadwalFragment extends Fragment {
     protected Mahasiswa mahasiswa;
     protected Presenter presenter;
     private List<JadwalKuliah> listJadwal;
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,28 +34,33 @@ public class JadwalFragment extends Fragment {
     }
 
     public void setJadwal(){
-        for(int i=0;i<listJadwal.size();i++){
-            int start = listJadwal.get(i).getWaktuMulai().getHour();
-            LocalTime startTime = LocalTime.of(start,0).truncatedTo(ChronoUnit.HOURS);
-            int end = listJadwal.get(i).getWaktuSelesai().getHour();
-            LocalTime endTime = LocalTime.of(end,0).truncatedTo(ChronoUnit.HOURS);
-            String nama = listJadwal.get(i).getMataKuliah().getNama();
-            String dosen = listJadwal.get(i).getPengajar().getNama();
-            dosen = getKodeDosen(dosen);
-            String lokasi = listJadwal.get(i).getLokasi();
-            if(lokasi.contains("Ruang Kuliah")){
-                lokasi = "Ruang "+lokasi.substring(13);
-            }else if(lokasi.contains("Lab.")){
-                lokasi = "Ruang "+lokasi.substring(6,10);
+        if(listJadwal.size()>0){
+            for(int i=0;i<listJadwal.size();i++){
+                int start = listJadwal.get(i).getWaktuMulai().getHour();
+                LocalTime startTime = LocalTime.of(start,0).truncatedTo(ChronoUnit.HOURS);
+                int end = listJadwal.get(i).getWaktuSelesai().getHour();
+                LocalTime endTime = LocalTime.of(end,0).truncatedTo(ChronoUnit.HOURS);
+                String nama = listJadwal.get(i).getMataKuliah().getNama();
+                String dosen = listJadwal.get(i).getPengajar().getNama();
+                dosen = getKodeDosen(dosen);
+                String lokasi = listJadwal.get(i).getLokasi();
+                if(lokasi.contains("Ruang Kuliah")){
+                    lokasi = "Ruang "+lokasi.substring(13);
+                }else if(lokasi.contains("Lab.")){
+                    lokasi = "Ruang "+lokasi.substring(6,10);
+                }
+                int year = 2021;
+                int month = 3;
+                int day = listJadwal.get(i).getHari().getValue();
+                String kode = listJadwal.get(i).getMataKuliah().getKode();
+                LocalDate date = LocalDate.of(year,month,day);
+                Event.Single event = new Event.Single(i,date,nama,kode,"",startTime,endTime,dosen,lokasi, Color.WHITE,getColor(kode));
+                weekView.addEvent(event);
             }
-            int year = 2021;
-            int month = 3;
-            int day = listJadwal.get(i).getHari().getValue();
-            String kode = listJadwal.get(i).getMataKuliah().getKode();
-            LocalDate date = LocalDate.of(year,month,day);
-            Event.Single event = new Event.Single(i,date,nama,kode,"",startTime,endTime,dosen,lokasi, Color.WHITE,getColor(kode));
-            weekView.addEvent(event);
+        }else{
+            Toast.makeText(getContext(),"Jadwal akademik belum tersedia",Toast.LENGTH_LONG).show();
         }
+
     }
 
     public static JadwalFragment newInstance() {

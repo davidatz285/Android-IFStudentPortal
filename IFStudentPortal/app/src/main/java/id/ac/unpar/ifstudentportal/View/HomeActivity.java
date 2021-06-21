@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeActivity {
         this.fragments[3] = kelulusanFragment;
         this.fm = getSupportFragmentManager();
         FragmentTransaction ft = this.fm.beginTransaction();
-        ft.add(R.id.fragment_container, this.fragments[0]).addToBackStack(null).commit();
+        ft.add(R.id.fragment_container, this.fragments[0]).commit();
         AndroidThreeTen.init(this);
     }
 

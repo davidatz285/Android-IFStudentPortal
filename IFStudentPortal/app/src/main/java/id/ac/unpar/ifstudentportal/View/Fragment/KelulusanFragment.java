@@ -1,5 +1,6 @@
 package id.ac.unpar.ifstudentportal.View.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +45,13 @@ public class KelulusanFragment extends Fragment implements IHomeActivity {
             String status = "";
             if(kelulusanAdapter.bisaLulus()){
                 status = "Anda sudah memenuhi syarat untuk lulus.";
+                this.tvStatus.setText(status);
+                this.tvStatus.setTextColor(Color.parseColor("#FF5DC062"));
             }else if(kelulusanAdapter.getAlasan().size() != 0){
                 status = "Anda belum memenuhi syarat untuk lulus:";
+                this.tvStatus.setText(status);
+                this.tvStatus.setTextColor(Color.RED);
             }
-            this.tvStatus.setText(status);
         } else {
             this.presenter.getNilaiMahasiswa(phpSessId, mahasiswa.getNpm());
         }
@@ -78,10 +82,13 @@ public class KelulusanFragment extends Fragment implements IHomeActivity {
         String status = "";
         if(kelulusanAdapter.bisaLulus()){
             status = "Anda sudah memenuhi syarat untuk lulus.";
+            this.tvStatus.setText(status);
+            this.tvStatus.setTextColor(Color.parseColor("#FF5DC062"));
         }else if(kelulusanAdapter.getAlasan().size() != 0){
             status = "Anda belum memenuhi syarat untuk lulus:";
+            this.tvStatus.setText(status);
+            this.tvStatus.setTextColor(Color.RED);
         }
-        this.tvStatus.setText(status);
     }
 
     @Override

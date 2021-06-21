@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -245,7 +246,6 @@ public class Scrapper {
                     String thn = thn_sem[0];
                     String sem = thn_sem[1];
                     Connection.Response response = Jsoup.connect(NILAI_URL + "/" + thn + "/" + sem).cookie("ci_session", phpsessid).method(Connection.Method.POST).execute();
-
                     Document document = response.parse();
                     Elements scripts = document.select("script");
                     for (Element script: scripts) {

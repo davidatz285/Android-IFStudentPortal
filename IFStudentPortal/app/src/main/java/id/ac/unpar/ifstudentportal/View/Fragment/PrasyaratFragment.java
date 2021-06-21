@@ -46,7 +46,6 @@ public class PrasyaratFragment extends Fragment implements IHomeActivity {
         this.tvIPK = view.findViewById(R.id.tv_ipk);
         this.tvSKSLulus = view.findViewById(R.id.tv_sks);
         this.tvTOEFL = view.findViewById(R.id.tv_toefl);
-
         if (this.savedState!=null) {
             this.mahasiswa = (Mahasiswa) this.savedState.getSerializable("mhs_nilai_added");
             this.mataKuliahAdapter = new MataKuliahAdapter(mahasiswa);
@@ -57,8 +56,6 @@ public class PrasyaratFragment extends Fragment implements IHomeActivity {
             this.tvSemester.setText(sem);
             String toefl = this.mahasiswa.getNilaiTOEFL().values().toString();
             this.tvTOEFL.setText("Nilai TOEFL : " + toefl);
-
-
             String kode = this.tahunSemester.getKodeDPS();
             TahunSemester smtSebelum;
             if(kode.charAt(2)=='1'){
@@ -85,11 +82,9 @@ public class PrasyaratFragment extends Fragment implements IHomeActivity {
                 String textTvSKS = "SKS Lulus : " + sks;
                 this.tvSKSLulus.setText(textTvSKS);
             }
-
         } else {
             this.presenter.getNilaiMahasiswa(phpSessId, mahasiswa.getNpm());
             this.presenter.requestTahunSemester(phpSessId, mahasiswa.getNpm());
-
         }
         return view;
     }
@@ -97,7 +92,6 @@ public class PrasyaratFragment extends Fragment implements IHomeActivity {
     @Override
     public void displayMahasiswaInfo(Mahasiswa mhs) {
         this.mahasiswa = mhs;
-
     }
 
     public static PrasyaratFragment newInstance() {
@@ -148,7 +142,6 @@ public class PrasyaratFragment extends Fragment implements IHomeActivity {
             String textTvTOEFL = "Nilai TOEFL : " + this.mahasiswa.getNilaiTOEFL().values().toString();
             this.tvTOEFL.setText(textTvTOEFL);
         }
-
         this.saveState(mahasiswa);
     }
 
