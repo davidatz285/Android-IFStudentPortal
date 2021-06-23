@@ -21,8 +21,8 @@ public class LoginManager {
         this.iLoginActivity = iLoginActivity;
     }
 
-    public void login(String email, String npm) {
-        this.scrapper.login(email, npm);
+    public void login(String npm, String password) {
+        this.scrapper.login(npm, password);
     }
 
     public void switchToHomeActivity(Wrapper wrapper) {

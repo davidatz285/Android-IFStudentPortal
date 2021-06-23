@@ -26,4 +26,11 @@ public class Wrapper {
         return phpSessId;
     }
 
+    public int getRespCode() {
+        return respCode;
+    }
+
+    public void setPhpSessId(String phpSessId) {
+        this.phpSessId = phpSessId;
+    }
 }

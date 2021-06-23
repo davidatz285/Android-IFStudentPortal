@@ -51,9 +51,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
         String npm = this.etEmail.getText().toString();
         boolean isMahasiswaIF = presenter.checkNPM(npm);
         if(isMahasiswaIF){
-            String email = npm.concat("@student.unpar.ac.id");
             String password = this.etPassword.getText().toString();
-            this.login(email,password);
+            this.login(npm,password);
         }else{
             Toast toast = Toast.makeText(this,"Bukan NPM Mahasiswa Teknik Informatika UNPAR",Toast.LENGTH_LONG);
             toast.show();
@@ -61,13 +60,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
     }
 
     @Override
-    public void login(String email, String password) {
-        this.presenter.login(email, password);
+    public void login(String npm, String password) {
+        this.presenter.login(npm, password);
     }
 
     @Override
     public void switchToHomeActivity(Wrapper wrapper) {
-        if(wrapper.getPhpSessId()!=null){
+        if(wrapper.getPhpSessId().length()!=0){
             Intent i = new Intent(LoginActivity.this,HomeActivity.class);
             i.putExtra("phpSessId",wrapper.getPhpSessId());
             i.putExtra("mhs", wrapper.getMahasiswa());

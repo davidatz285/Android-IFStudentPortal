@@ -20,8 +20,8 @@ public class Presenter {
         this.homeManager.getNilaiMahasiswa(phpSessId,npm);
     }
 
-    public void login(String email, String npm) {
-        this.loginManager.login(email,npm);
+    public void login(String npm, String password) {
+        this.loginManager.login(npm,password);
     }
 
     public void getMahasiswaInfo(String phpSessId, String npm) {

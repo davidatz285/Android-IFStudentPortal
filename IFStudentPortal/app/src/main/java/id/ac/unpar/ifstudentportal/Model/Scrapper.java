@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -60,8 +59,8 @@ public class Scrapper {
         this.dialog = new ProgressDialog(context);
     }
 
-    public void login(String email, String password) {
-        new Login().execute(email, password);
+    public void login(String npm, String password) {
+        new Login().execute(npm, password);
     }
 
     public void getMahasiswaInfo(String phpSessId, String npm) {
@@ -92,8 +91,8 @@ public class Scrapper {
         @Override
         protected Wrapper doInBackground(String... params) {
             String result;
-            Wrapper wrapper = null;
-            mahasiswa = new Mahasiswa(params[0].substring(0, 10));
+            mahasiswa = new Mahasiswa(params[0]);
+            Wrapper wrapper = new Wrapper("",0,mahasiswa);
             try {
                 Connection.Response resp = Jsoup.connect(LOGIN_URL).data("Submit", "Login").method(Connection.Method.POST).execute();
                 Document doc = resp.parse();
@@ -103,7 +102,8 @@ public class Scrapper {
                 /* SSO LOGIN */
                 Connection loginConn = Jsoup.connect(SSO_URL + ";jsessionid=" + jsessionid + "?service=" + LOGIN_URL);
                 loginConn.cookies(resp.cookies());
-                loginConn.data("username", params[0]);
+                String email = params[0].concat("@student.unpar.ac.id");
+                loginConn.data("username", email);
                 loginConn.data("password", params[1]);
                 loginConn.data("lt", lt);
                 loginConn.data("execution", execution);
@@ -118,9 +118,10 @@ public class Scrapper {
                     result = phpsessid.get("ci_session");
                     phpSessId = result;
                 } else {
-                    phpSessId = null;
+                    phpSessId = "";
                 }
-                wrapper = new Wrapper(phpSessId, respCode, mahasiswa);
+                wrapper.setMahasiswa(mahasiswa);
+                wrapper.setPhpSessId(phpSessId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
