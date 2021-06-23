@@ -53,12 +53,10 @@
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/et_password"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="@string/password"
-            android:text="28052702"
             android:padding="15dp"
             android:textColorHint="@color/creame"
             android:textSize="20sp" />

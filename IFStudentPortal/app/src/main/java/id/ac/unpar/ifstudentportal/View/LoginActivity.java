@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,11 +34,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity, 
         this.btnLogin.setOnClickListener(this);
         this.presenter = new Presenter(this);
         this.checkbox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-            // show password
             if (isChecked)
                 etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             else {
-                // hide password
                 etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
